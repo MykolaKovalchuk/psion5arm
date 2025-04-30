@@ -47,14 +47,16 @@
 #define KEY_APOSTROPHE 0x27 // '
 #define KEY_COMMA      0x2C // ,
 #define KEY_PERIOD     0x2E // .
+#define KEY_SLASH      0x2F // /
 #define KEY_COLON      0x3A // :
 #define KEY_SEMICOLON  0x3B // ;
 #define KEY_ANGLE_L    0x3C // <
 #define KEY_EQUAL      0x3D // =
 #define KEY_ANGLE_R    0x3E // >
+#define KEY_QUESTION   0x3F // ?
 #define KEY_AT         0x40 // @
 #define KEY_SQUARE_L   0x5B // [
-#define KEY_BACK_SLASH 0x5C // \ 
+#define KEY_BACK_SLASH 0x5C // `back slash`
 #define KEY_SQUARE_R   0x5D // ]
 #define KEY_UNDERSCORE 0x5F // _
 #define KEY_TICK       0x60 // `
@@ -64,6 +66,9 @@
 #define KEY_TILDA      0x7E // ~
 
 #define KEY_FN         KEY_RIGHT_ALT   // Mapped as AltGr
+
+#define ROW_FN         2
+#define COL_FN         6
 
 static int keyScancode[NROWS][NCOLS] = {
   { 0              , KEY_SPACE        , KEY_UP_ARROW   , KEY_COMMA                , KEY_LEFT_ARROW           , KEY_RIGHT_ARROW , KEY_LEFT_SHIFT  },
@@ -77,11 +82,11 @@ static int keyScancode[NROWS][NCOLS] = {
 };
 
 static int keyFnScancode[NROWS][NCOLS] = {
-  { 0              , KEY_PRINT_SCREEN , KEY_PAGE_UP    , KEY_MENU                 , KEY_HOME                 , KEY_END         , 0               },
-  { 0              , 0                , 0              , 0                        , 0                        , 0               , 0               },
-  { KEY_PIPE       , KEY_TICK         , KEY_TILDA      , KEY_BRIGHTNESS_DECREMENT , KEY_BRIGHTNESS_INCREMENT , KEY_PAGE_DOWN   , KEY_FN          },
-  { KEY_CAPS_LOCK  , 0                , 0              , 0                        , 0                        , 0               , 0               },
-  { KEY_UNDERSCORE , KEY_HASH         , KEY_BACK_SLASH , KEY_AT                   , KEY_ANGLE_L              , KEY_ANGLE_R     , 0               },
+  { 0              , KEY_PRINT_SCREEN , KEY_PAGE_UP    , KEY_MENU                 , KEY_HOME                 , KEY_END         , KEY_LEFT_SHIFT  },
+  { 0              , 0                , 0              , 0                        , 0                        , 0               , KEY_RIGHT_SHIFT },
+  { KEY_TICK       , KEY_TILDA        , KEY_QUESTION   , KEY_BRIGHTNESS_DECREMENT , KEY_BRIGHTNESS_INCREMENT , KEY_PAGE_DOWN   , KEY_FN          },
+  { KEY_CAPS_LOCK  , 0                , 0              , 0                        , 0                        , KEY_PIPE        , KEY_LEFT_CTRL   },
+  { KEY_UNDERSCORE , KEY_SLASH        , KEY_BACK_SLASH , KEY_AT                   , KEY_ANGLE_L              , KEY_ANGLE_R     , 0               },
   { KEY_KP_SLASH   , KEY_KP_PLUS      , KEY_KP_MINUS   , KEY_EQUAL                , KEY_SEMICOLON            , 0               , KEY_LEFT_GUI    },
   { 0              , 0                , 0              , 0                        , 0                        , KEY_KP_ASTERISK , KEY_POWER       },
   { KEY_SQUARE_L   , KEY_SQUARE_R     , KEY_CURL_L     , KEY_CURL_R               , KEY_DELETE               , KEY_COLON       , 0               }

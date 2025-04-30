@@ -58,13 +58,22 @@ void loop()
       sendKeys(keypressArrayCurrent, keypressArrayPrevious);
       if (nKeysPressed == 0)
       {
-        // Ensure we don't hold anything
-        Keyboard.releaseAll();
+        Keyboard.releaseAll(); // Ensure we don't hold anything
       }
     }
 
     // Remember which keys were pressed so we can release them later
-    memcpy(keypressArrayPrevious, keypressArrayCurrent, sizeof(keypressArrayCurrent));
+    for (int col = 0; col < NCOLS; col++)
+    {
+      for (int row = 0; row < NROWS; row++)
+      {
+        if (keypressArrayPrevious[row][col] == 0 || keypressArrayCurrent[row][col] == 0) // Do not overwrite pressed keys with different scanCodes after Fn press or release
+        {
+          keypressArrayPrevious[row][col] = keypressArrayCurrent[row][col];
+        }
+      }
+    }
+
     previousTime = millis();
   }
   else
@@ -76,7 +85,9 @@ void loop()
 int scanKeyboard(int keyArray[][NCOLS])
 {
   int nKeysPressed = 0;
+  bool fnPressed = false;
 
+  // We need to go by columns first, because columns 7-12 combined on a single contact pin
   for (int col = 0; col < NCOLS; col++)
   {
     // Select a pin to sink current
@@ -90,7 +101,15 @@ int scanKeyboard(int keyArray[][NCOLS])
       {
         if (digitalRead(Rows[row]) == LOW)
         {
-          keyArray[row][col] = 1;
+          if (keyArray[row][col] == 0) // If no pressed scancode yet stored
+          {
+            keyArray[row][col] = 1;
+          }
+          if (keyScancode[row][col] == KEY_FN)
+          {
+            fnPressed = true;
+          }
+
           nKeysPressed++;
         }
         else
@@ -103,6 +122,18 @@ int scanKeyboard(int keyArray[][NCOLS])
     pinMode(Cols[col], INPUT);
   }
 
+  // Store new keys scanCodes with current Fn
+  for (int col = 0; col < NCOLS; col++)
+  {
+    for (int row = 0; row < NROWS; row++)
+    {
+      if (keyArray[row][col] == 1) // 1 == newly pressed key
+      {
+        keyArray[row][col] = fnPressed ? keyFnScancode[row][col] : keyScancode[row][col];
+      }
+    }
+  }
+
   return nKeysPressed;
 }
 
@@ -112,15 +143,16 @@ void sendKeys(int pressedArray[][NCOLS], int previousArray[][NCOLS])
   {
     for (int col = 0; col < NCOLS; col++)
     {
-      // If a new button is pressed
-      if (pressedArray[row][col] > previousArray[row][col])
+      if (row != ROW_FN || col != COL_FN) // Do not report Fn key itself
       {
-        Keyboard.press(keyScancode[row][col]);
-      }
-      // This handles the release of keys
-      else if (pressedArray[row][col] < previousArray[row][col])
-      {
-        Keyboard.release(keyScancode[row][col]);
+        if (pressedArray[row][col] != 0 && previousArray[row][col] == 0) // If a new button is pressed (ignore key scanCode change by Fn press or release)
+        {
+          Keyboard.press(pressedArray[row][col]);
+        }
+        else if (pressedArray[row][col] == 0 && previousArray[row][col] != 0) // This handles the release of keys
+        {
+          Keyboard.release(previousArray[row][col]); // Release previously pressed key (with memory of its Fn state when pressed)
+        }
       }
     }
   }
