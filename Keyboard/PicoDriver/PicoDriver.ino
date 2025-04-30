@@ -13,7 +13,7 @@
 #define KEYBOARD_ENABLED true
 
 // Max number of scans/second
-#define MAX_SCAN_RATE 100
+#define MAX_SCAN_RATE 1000
 
 int keypressArrayCurrent[NROWS][NCOLS];
 int keypressArrayPrevious[NROWS][NCOLS];
@@ -78,7 +78,7 @@ void loop()
   }
   else
   {
-    delay(1);
+    delayMicroseconds(100);
   }
 }
 
@@ -86,6 +86,7 @@ int scanKeyboard(int keyArray[][NCOLS])
 {
   int nKeysPressed = 0;
   bool fnPressed = false;
+  bool keyFPressed = false; // Fn + F + 1-0 = F1-F10
 
   // We need to go by columns first, because columns 7-12 combined on a single contact pin
   for (int col = 0; col < NCOLS; col++)
@@ -93,7 +94,7 @@ int scanKeyboard(int keyArray[][NCOLS])
     // Select a pin to sink current
     pinMode(Cols[col], OUTPUT);
     digitalWrite(Cols[col], LOW);
-    delay(1);
+    delayMicroseconds(100); // Without small delay there are some inconsistencies in keys scanning
 
     for (int row = 0; row < NROWS; row++)
     {
@@ -108,6 +109,10 @@ int scanKeyboard(int keyArray[][NCOLS])
           if (keyScancode[row][col] == KEY_FN)
           {
             fnPressed = true;
+          }
+          if (keyScancode[row][col] == KEY_F)
+          {
+            keyFPressed = true;
           }
 
           nKeysPressed++;
@@ -129,7 +134,24 @@ int scanKeyboard(int keyArray[][NCOLS])
     {
       if (keyArray[row][col] == 1) // 1 == newly pressed key
       {
-        keyArray[row][col] = fnPressed ? keyFnScancode[row][col] : keyScancode[row][col];
+        int scanCode = keyScancode[row][col];
+        if (fnPressed && keyFPressed && scanCode >= KEY_0 && scanCode <= KEY_9) // Fn + F + 1-0 = F1-F10
+        {
+          if (scanCode == KEY_0)
+          {
+            scanCode = KEY_F10;
+          }
+          else
+          {
+            scanCode = scanCode - KEY_1 + KEY_F1;
+          }
+        }
+        else if (fnPressed)
+        {
+          scanCode = keyFnScancode[row][col];
+        }
+
+        keyArray[row][col] = scanCode;
       }
     }
   }
@@ -143,7 +165,7 @@ void sendKeys(int pressedArray[][NCOLS], int previousArray[][NCOLS])
   {
     for (int col = 0; col < NCOLS; col++)
     {
-      if (row != ROW_FN || col != COL_FN) // Do not report Fn key itself
+      if (pressedArray[row][col] != KEY_FN && previousArray[row][col] != KEY_FN) // Do not report Fn key itself
       {
         if (pressedArray[row][col] != 0 && previousArray[row][col] == 0) // If a new button is pressed (ignore key scanCode change by Fn press or release)
         {

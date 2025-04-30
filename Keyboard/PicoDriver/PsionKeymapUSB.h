@@ -67,9 +67,6 @@
 
 #define KEY_FN         KEY_RIGHT_ALT   // Mapped as AltGr
 
-#define ROW_FN         2
-#define COL_FN         6
-
 static int keyScancode[NROWS][NCOLS] = {
   { 0              , KEY_SPACE        , KEY_UP_ARROW   , KEY_COMMA                , KEY_LEFT_ARROW           , KEY_RIGHT_ARROW , KEY_LEFT_SHIFT  },
   { KEY_Z          , KEY_X            , KEY_C          , KEY_V                    , KEY_B                    , KEY_N           , KEY_RIGHT_SHIFT },
