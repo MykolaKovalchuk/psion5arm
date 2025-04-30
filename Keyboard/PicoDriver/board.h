@@ -1,5 +1,5 @@
 /*
- This is how the pins are connected to the keyboard
+ This is how the pins are connected to the keyboard.
 */
 
 // This disables the RX and TX LEDs that are not on this PCB
@@ -18,7 +18,6 @@
 #define RXLED1 0
 #define TX_RX_LED_INIT 0
 
-
 #define LED_BUILTIN_RX 0
 #define LED_BUILTIN_TX 0
 
@@ -26,8 +25,8 @@
 #define NROWS 8
 #define NCOLS 7
 
-// Psion keyboard contacts numbered 0-21 left to right when looking on keyboard normally with contact cable placed straight up
-// contacts 0 and 21 are not used
+// Psion keyboard contacts numbered 0-21 left to right when looking on keyboard normally with contact cable placed straight up.
+// Contacts 0 and 21 are not used.
 
 #define ROW_01  16 // 20
 #define ROW_02  15 // 19
@@ -44,7 +43,7 @@
 #define COL_4   5  // 9
 #define COL_5   4  // 8
 #define COL_6   3  // 7
-#define COL_7   2  // 1-6 combined (each column contact just has 1 key mapped)
+#define COL_7   2  // columns 7-12, contacts 1-6, combined together (each column contact just has 1 key mapped)
 
 int Rows [NROWS] = {
   ROW_01,

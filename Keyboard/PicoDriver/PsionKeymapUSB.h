@@ -1,7 +1,7 @@
 /*
  Maps the keys to ASCII symbols as shown here:
  https://www.arduino.cc/reference/cs/language/functions/usb/keyboard/keyboardmodifiers/
- more here: file://c:\Users\mykol\AppData\Local\Arduino15\packages\rp2040\hardware\rp2040\4.5.2\libraries\HID_Keyboard\src\HID_Keyboard.h
+ more here: c:\Users\user-name\AppData\Local\Arduino15\packages\rp2040\hardware\rp2040\4.5.2\libraries\HID_Keyboard\src\HID_Keyboard.h
 */
 
 #define KEY_A          0x61

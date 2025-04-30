@@ -1,3 +1,11 @@
+/*
+ Raspberry Pico USB keyboard driver for Psino Series 5 keyboard.
+ Made in Arduino IDE with https://github.com/earlephilhower/arduino-pico/ library (using guide https://randomnerdtutorials.com/programming-raspberry-pi-pico-w-arduino-ide/).
+
+ Code based on original RasmusB code https://github.com/RasmusB/USB-Keyboard-Adapter and guide https://hackaday.io/project/4042-psio
+ Additional guide: https://jbmorley.co.uk/posts/2018-03-11-psion-bluetooth-keyboard/
+*/
+
 #include "board.h"
 #include "Keyboard.h"
 #include "PsionKeymapUSB.h"
