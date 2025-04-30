@@ -42,33 +42,47 @@
 #define KEY_8          0x38
 #define KEY_9          0x39
 
-#define KEY_ENTER      0xB0
-#define KEY_ESC        0xB1
-#define KEY_BACKSPACE  0xB2
-#define KEY_TAB        0xB3
 #define KEY_SPACE      0x20
-#define KEY_APOSTROPHE 0x27
-#define KEY_COMMA      0x2C
-#define KEY_PERIOD     0x2E
-#define KEY_RIGHT      0xD7
-#define KEY_LEFT       0xD8
-#define KEY_DOWN       0xD9
-#define KEY_UP         0xDA
-#define KEY_CTRL       0x80   // Left CTRL
-#define KEY_LSHIFT     0x81
-//#define KEY_ALT_MENU   KEY_MENU   // Context Menu
-#define KEY_ALT_MENU   0x82   // Mapped as Left Alt
-#define KEY_RSHIFT     0x85
-//#define KEY_FN         KEY_RIGHT_ALT   // Mapped as AltGr
-#define KEY_FN         KEY_LEFT_GUI   // Windows Key - press and release
+#define KEY_HASH       0x23 // #
+#define KEY_APOSTROPHE 0x27 // '
+#define KEY_COMMA      0x2C // ,
+#define KEY_PERIOD     0x2E // .
+#define KEY_COLON      0x3A // :
+#define KEY_SEMICOLON  0x3B // ;
+#define KEY_ANGLE_L    0x3C // <
+#define KEY_EQUAL      0x3D // =
+#define KEY_ANGLE_R    0x3E // >
+#define KEY_AT         0x40 // @
+#define KEY_SQUARE_L   0x5B // [
+#define KEY_BACK_SLASH 0x5C // \ 
+#define KEY_SQUARE_R   0x5D // ]
+#define KEY_UNDERSCORE 0x5F // _
+#define KEY_TICK       0x60 // `
+#define KEY_CURL_L     0x7B // {
+#define KEY_PIPE       0x7C // |
+#define KEY_CURL_R     0x7D // }
+#define KEY_TILDA      0x7E // ~
 
-static int keyScancode [NROWS] [NCOLS] = {
-  { 0       , KEY_SPACE , KEY_UP , KEY_COMMA , KEY_LEFT      , KEY_RIGHT      , KEY_LSHIFT   },
-  { KEY_Z   , KEY_X     , KEY_C  , KEY_V     , KEY_B         , KEY_N          , KEY_RSHIFT   },
-  { KEY_H   , KEY_J     , KEY_K  , KEY_M     , KEY_PERIOD    , KEY_DOWN       , KEY_FN       },
-  { KEY_TAB , KEY_A     , KEY_S  , KEY_D     , KEY_F         , KEY_G          , KEY_CTRL     },
-  { KEY_1   , KEY_2     , KEY_3  , KEY_4     , KEY_5         , KEY_6          , 0            },
-  { KEY_U   , KEY_I     , KEY_O  , KEY_P     , KEY_L         , KEY_ENTER      , KEY_ALT_MENU },
-  { KEY_Q   , KEY_W     , KEY_E  , KEY_R     , KEY_T         , KEY_Y          , KEY_ESC      },
-  { KEY_7   , KEY_8     , KEY_9  , KEY_0     , KEY_BACKSPACE , KEY_APOSTROPHE , 0            }
+#define KEY_FN         KEY_RIGHT_ALT   // Mapped as AltGr
+
+static int keyScancode[NROWS][NCOLS] = {
+  { 0              , KEY_SPACE        , KEY_UP_ARROW   , KEY_COMMA                , KEY_LEFT_ARROW           , KEY_RIGHT_ARROW , KEY_LEFT_SHIFT  },
+  { KEY_Z          , KEY_X            , KEY_C          , KEY_V                    , KEY_B                    , KEY_N           , KEY_RIGHT_SHIFT },
+  { KEY_H          , KEY_J            , KEY_K          , KEY_M                    , KEY_PERIOD               , KEY_DOWN_ARROW  , KEY_FN          },
+  { KEY_TAB        , KEY_A            , KEY_S          , KEY_D                    , KEY_F                    , KEY_G           , KEY_LEFT_CTRL   },
+  { KEY_1          , KEY_2            , KEY_3          , KEY_4                    , KEY_5                    , KEY_6           , 0               },
+  { KEY_U          , KEY_I            , KEY_O          , KEY_P                    , KEY_L                    , KEY_RETURN      , KEY_LEFT_ALT    },
+  { KEY_Q          , KEY_W            , KEY_E          , KEY_R                    , KEY_T                    , KEY_Y           , KEY_ESC         },
+  { KEY_7          , KEY_8            , KEY_9          , KEY_0                    , KEY_BACKSPACE            , KEY_APOSTROPHE  , 0               }
+};
+
+static int keyFnScancode[NROWS][NCOLS] = {
+  { 0              , KEY_PRINT_SCREEN , KEY_PAGE_UP    , KEY_MENU                 , KEY_HOME                 , KEY_END         , 0               },
+  { 0              , 0                , 0              , 0                        , 0                        , 0               , 0               },
+  { KEY_PIPE       , KEY_TICK         , KEY_TILDA      , KEY_BRIGHTNESS_DECREMENT , KEY_BRIGHTNESS_INCREMENT , KEY_PAGE_DOWN   , KEY_FN          },
+  { KEY_CAPS_LOCK  , 0                , 0              , 0                        , 0                        , 0               , 0               },
+  { KEY_UNDERSCORE , KEY_HASH         , KEY_BACK_SLASH , KEY_AT                   , KEY_ANGLE_L              , KEY_ANGLE_R     , 0               },
+  { KEY_KP_SLASH   , KEY_KP_PLUS      , KEY_KP_MINUS   , KEY_EQUAL                , KEY_SEMICOLON            , 0               , KEY_LEFT_GUI    },
+  { 0              , 0                , 0              , 0                        , 0                        , KEY_KP_ASTERISK , KEY_POWER       },
+  { KEY_SQUARE_L   , KEY_SQUARE_R     , KEY_CURL_L     , KEY_CURL_R               , KEY_DELETE               , KEY_COLON       , 0               }
 };
