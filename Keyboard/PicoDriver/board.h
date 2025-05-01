@@ -28,22 +28,24 @@
 // Psion keyboard contacts numbered 0-21 left to right when looking on keyboard normally with contact cable placed straight up.
 // Contacts 0 and 21 are not used.
 
-#define ROW_01  16 // 20
-#define ROW_02  15 // 19
-#define ROW_03  14 // 18
-#define ROW_04  13 // 17
-#define ROW_05  12 // 16
-#define ROW_06  10 // 14
-#define ROW_07  9  // 13
-#define ROW_08  8  // 12
+// Use GPIO 1-15 - all on one side of RP2040 chip
 
-#define COL_1   11 // 15
-#define COL_2   7  // 11
-#define COL_3   6  // 10
-#define COL_4   5  // 9
-#define COL_5   4  // 8
-#define COL_6   3  // 7
-#define COL_7   2  // columns 7-12, contacts 1-6, combined together (each column contact just has 1 key mapped)
+#define ROW_01  15 // 20
+#define ROW_02  14 // 19
+#define ROW_03  13 // 18
+#define ROW_04  12 // 17
+#define ROW_05  11 // 16
+#define ROW_06  9  // 14
+#define ROW_07  8  // 13
+#define ROW_08  7  // 12
+
+#define COL_1   10 // 15
+#define COL_2   6  // 11
+#define COL_3   5  // 10
+#define COL_4   4  // 9
+#define COL_5   3  // 8
+#define COL_6   2  // 7
+#define COL_7   1  // columns 7-12, contacts 1-6, combined together (each column contact just has 1 key mapped)
 
 int Rows [NROWS] = {
   ROW_01,
