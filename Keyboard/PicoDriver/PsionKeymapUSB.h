@@ -67,6 +67,13 @@
 
 #define KEY_FN         KEY_RIGHT_ALT   // Mapped as AltGr
 
+#define KMOUSE_UP      0xCC01
+#define KMOUSE_DOWN    0xCC02
+#define KMOUSE_LEFT    0xCC03
+#define KMOUSE_RIGHT   0xCC04
+#define KMOUSE_BTN_L   0xCC05
+#define KMOUSE_BTN_R   0xCC06
+
 static int keyScancode[NROWS][NCOLS] = {
   { 0              , KEY_SPACE        , KEY_UP_ARROW   , KEY_COMMA                , KEY_LEFT_ARROW           , KEY_RIGHT_ARROW , KEY_LEFT_SHIFT  },
   { KEY_Z          , KEY_X            , KEY_C          , KEY_V                    , KEY_B                    , KEY_N           , KEY_RIGHT_SHIFT },
@@ -87,4 +94,15 @@ static int keyFnScancode[NROWS][NCOLS] = {
   { KEY_KP_SLASH   , KEY_KP_PLUS      , KEY_KP_MINUS   , KEY_EQUAL                , KEY_SEMICOLON            , 0               , KEY_LEFT_GUI    },
   { 0              , 0                , 0              , 0                        , 0                        , KEY_KP_ASTERISK , KEY_POWER       },
   { KEY_SQUARE_L   , KEY_SQUARE_R     , KEY_CURL_L     , KEY_CURL_R               , KEY_DELETE               , KEY_COLON       , 0               }
+};
+
+static int keyMouseScancode[NROWS][NCOLS] = {
+  { 0              , 0                , KMOUSE_UP      , 0                        , KMOUSE_LEFT              , KMOUSE_RIGHT    , 0               },
+  { 0              , 0                , 0              , 0                        , 0                        , 0               , 0               },
+  { 0              , 0                , 0              , 0                        , 0                        , KMOUSE_DOWN     , 0               },
+  { 0              , 0                , 0              , 0                        , 0                        , 0               , 0               },
+  { 0              , 0                , 0              , 0                        , 0                        , 0               , 0               },
+  { 0              , 0                , 0              , 0                        , 0                        , KMOUSE_BTN_L    , 0               },
+  { 0              , 0                , 0              , 0                        , 0                        , 0               , 0               },
+  { 0              , 0                , 0              , 0                        , 0                        , 0               , 0               }
 };

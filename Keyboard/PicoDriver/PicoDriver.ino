@@ -8,9 +8,11 @@
 
 #include "board.h"
 #include "Keyboard.h"
+#include "Mouse.h"
 #include "PsionKeymapUSB.h"
 
 #define KEYBOARD_ENABLED true
+#define MOUSE_ENABLED true
 
 // Max number of scans/second
 #define MAX_SCAN_RATE 1000
@@ -21,6 +23,9 @@ int keypressArrayPrevious[NROWS][NCOLS];
 unsigned long previousTime;
 unsigned int minDelay;
 
+unsigned long lastMove;
+unsigned int moveSpeed = 5;
+
 void setup()
 {
   previousTime = 0;
@@ -30,6 +35,11 @@ void setup()
   {
     Keyboard.begin();
     Keyboard.onLED(ledCB);
+  }
+
+  if (MOUSE_ENABLED)
+  {
+    Mouse.begin();
   }
 
   pinMode(LED_BUILTIN, OUTPUT);
@@ -87,6 +97,7 @@ int scanKeyboard(int keyArray[][NCOLS])
   int nKeysPressed = 0;
   bool fnPressed = false;
   bool keyFPressed = false; // Fn + F + 1-0 = F1-F10
+  bool keyCPressed = false; // Fn + C + arrows = mouse move, Enter = mouse click
 
   // We need to go by columns first, because columns 7-12 combined on a single contact pin
   for (int col = 0; col < NCOLS; col++)
@@ -98,7 +109,9 @@ int scanKeyboard(int keyArray[][NCOLS])
 
     for (int row = 0; row < NROWS; row++)
     {
-      if (keyScancode[row][col] != 0)
+      int scanCode = keyScancode[row][col];
+
+      if (scanCode != 0)
       {
         if (digitalRead(Rows[row]) == LOW)
         {
@@ -106,13 +119,17 @@ int scanKeyboard(int keyArray[][NCOLS])
           {
             keyArray[row][col] = 1;
           }
-          if (keyScancode[row][col] == KEY_FN)
+          if (scanCode == KEY_FN)
           {
             fnPressed = true;
           }
-          if (keyScancode[row][col] == KEY_F)
+          if (scanCode == KEY_F)
           {
             keyFPressed = true;
+          }
+          if (scanCode == KEY_C)
+          {
+            keyCPressed = true;
           }
 
           nKeysPressed++;
@@ -146,6 +163,10 @@ int scanKeyboard(int keyArray[][NCOLS])
             scanCode = scanCode - KEY_1 + KEY_F1;
           }
         }
+        else if (fnPressed && keyCPressed && keyMouseScancode[row][col] != 0)
+        {
+          scanCode = keyMouseScancode[row][col];
+        }
         else if (fnPressed)
         {
           scanCode = keyFnScancode[row][col];
@@ -161,23 +182,115 @@ int scanKeyboard(int keyArray[][NCOLS])
 
 void sendKeys(int pressedArray[][NCOLS], int previousArray[][NCOLS])
 {
+  bool mouseMoved = false;
+
   for (int row = 0; row < NROWS; row++)
   {
     for (int col = 0; col < NCOLS; col++)
     {
-      if (pressedArray[row][col] != KEY_FN && previousArray[row][col] != KEY_FN) // Do not report Fn key itself
+      int newKey = pressedArray[row][col];
+      int oldKey = previousArray[row][col];
+
+      if (newKey != KEY_FN && oldKey != KEY_FN) // Do not report Fn key itself
       {
-        if (pressedArray[row][col] != 0 && previousArray[row][col] == 0) // If a new button is pressed (ignore key scanCode change by Fn press or release)
+        if (processMouseMoveKeys(newKey))
         {
-          Keyboard.press(pressedArray[row][col]);
+          mouseMoved = true;
+          continue;
         }
-        else if (pressedArray[row][col] == 0 && previousArray[row][col] != 0) // This handles the release of keys
+        else if (newKey != 0 && oldKey == 0) // If a new button is pressed (ignore key scanCode change by Fn press or release)
         {
-          Keyboard.release(previousArray[row][col]); // Release previously pressed key (with memory of its Fn state when pressed)
+          if (newKey == KMOUSE_BTN_L)
+          {
+            if (MOUSE_ENABLED)
+            {
+              Mouse.press(MOUSE_LEFT);
+            }
+          }
+          else
+          {
+             Keyboard.press(newKey);
+          }
+        }
+        else if (newKey == 0 && oldKey != 0) // This handles the release of keys
+        {
+          if (oldKey == KMOUSE_BTN_L)
+          {
+            if (MOUSE_ENABLED)
+            {
+              Mouse.release(MOUSE_LEFT);
+            }
+          }
+          else
+          {
+            Keyboard.release(oldKey); // Release previously pressed key (with memory of its Fn state when pressed)
+          }
         }
       }
     }
   }
+
+  if (mouseMoved)
+  {
+    lastMove = millis();
+  }
+  else
+  {
+    lastMove = 0;
+  }
+}
+
+bool processMouseMoveKeys(int key)
+{
+  bool processed = false;
+  signed char dx = 0;
+  signed char dy = 0;
+
+  if (key == KMOUSE_LEFT)
+  {
+    dx = -1;
+    processed = true;
+  }
+  else if (key == KMOUSE_RIGHT)
+  {
+    dx = 1;
+    processed = true;
+  }
+
+  if (key == KMOUSE_UP)
+  {
+    dy = -1;
+    processed = true;
+  }
+  else if (key == KMOUSE_DOWN)
+  {
+    dy = 1;
+    processed = true;
+  }
+
+  if (MOUSE_ENABLED)
+  {
+    if (dx != 0 || dy != 0)
+    {
+      unsigned long delta = 1;
+      if (lastMove != 0)
+      {
+        delta = (millis() - lastMove);
+      }
+      delta = delta * moveSpeed;
+
+      if (delta > 0)
+      {
+        if (delta > 127) { delta = 127; }
+        if (dx != 0) { dx = dx * delta; }
+        if (dy != 0) { dy = dy * delta; }
+      }
+
+      Mouse.move(dx, dy, 0);
+    }
+  }
+
+  return processed;
 }
 
 void ledCB(bool numlock, bool capslock, bool scrolllock, bool compose, bool kana, void *cbData)
