@@ -1,8 +1,8 @@
 #include <Mouse.h>
 #include <CirquePinnacle.h>
 
-#define SS_PIN 6
-#define DR_PIN 8
+#define SS_PIN 20
+#define DR_PIN 21
 #define LED LED_BUILTIN
 
 PinnacleTouchSPI trackpad(DR_PIN, SS_PIN);
