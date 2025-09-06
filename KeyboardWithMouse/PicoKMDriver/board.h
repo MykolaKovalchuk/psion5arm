@@ -21,6 +21,8 @@
 #define LED_BUILTIN_RX 0
 #define LED_BUILTIN_TX 0
 
+#define LED 28 // Use GPIO 28 instead of LED_BUILTIN
+
 // See the keyboard schematic for row/col mapping
 #define NROWS 8
 #define NCOLS 7

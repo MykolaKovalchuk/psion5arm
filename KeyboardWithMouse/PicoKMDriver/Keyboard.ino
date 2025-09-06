@@ -18,7 +18,7 @@ void setupKeyboard()
 
   for (int i = 0; i < NCOLS; i++)
   {
-    pinMode(Cols[i], INPUT);
+    pinMode(Cols[i], INPUT_PULLDOWN);
   }
 
   for (int i = 0; i < NROWS; i++)

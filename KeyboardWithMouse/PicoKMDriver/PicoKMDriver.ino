@@ -15,14 +15,13 @@
 #include "PsionKeymapUSB.h"
 
 #define MAX_SCAN_RATE 1000 // Max number of scans/second
-#define LED LED_BUILTIN
 
 unsigned long previousTime;
 unsigned int minDelay;
 
 void setup()
 {
-  pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(LED, OUTPUT);
   digitalWrite(LED, HIGH);
 
   sleep_ms(1000);
