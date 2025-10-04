@@ -17,3 +17,5 @@ Internal assembly:
 
 Actual assembly:
 ![Assembly 2](/Images/PXL_20250928_035612955.jpg)
+
+3D models for new panels: https://www.printables.com/@MykolaKovalc_3575424/collections/2704362
