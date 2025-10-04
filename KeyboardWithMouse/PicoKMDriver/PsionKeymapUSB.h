@@ -2,7 +2,7 @@
  Psion Series 5 keyboard matrix can be found here: https://jbmorley.co.uk/posts/2018-03-11-psion-bluetooth-keyboard/
 
  Maps the keys to ASCII symbols as shown here:
- https://www.arduino.cc/reference/cs/language/functions/usb/keyboard/keyboardmodifiers/
+ https://docs.arduino.cc/language-reference/en/functions/usb/Keyboard/keyboardModifiers/
  more here: c:\Users\user-name\AppData\Local\Arduino15\packages\rp2040\hardware\rp2040\4.5.2\libraries\HID_Keyboard\src\HID_Keyboard.h
 */
 
@@ -72,23 +72,23 @@
 #define KEY_F1_F10     KEY_Z // Modifier key to use 1-0 as F1-F10
 
 static int keyScancode[NROWS][NCOLS] = {
-  { 0              , KEY_SPACE        , KEY_UP_ARROW   , KEY_COMMA                , KEY_LEFT_ARROW           , KEY_RIGHT_ARROW , KEY_LEFT_SHIFT  },
-  { KEY_Z          , KEY_X            , KEY_C          , KEY_V                    , KEY_B                    , KEY_N           , KEY_RIGHT_SHIFT },
-  { KEY_H          , KEY_J            , KEY_K          , KEY_M                    , KEY_PERIOD               , KEY_DOWN_ARROW  , KEY_FN          },
-  { KEY_TAB        , KEY_A            , KEY_S          , KEY_D                    , KEY_F                    , KEY_G           , KEY_LEFT_CTRL   },
-  { KEY_1          , KEY_2            , KEY_3          , KEY_4                    , KEY_5                    , KEY_6           , 0               },
-  { KEY_U          , KEY_I            , KEY_O          , KEY_P                    , KEY_L                    , KEY_RETURN      , KEY_LEFT_GUI    },
-  { KEY_Q          , KEY_W            , KEY_E          , KEY_R                    , KEY_T                    , KEY_Y           , KEY_ESC         },
-  { KEY_7          , KEY_8            , KEY_9          , KEY_0                    , KEY_BACKSPACE            , KEY_APOSTROPHE  , 0               }
+  { 0              , KEY_SPACE        , KEY_UP_ARROW   , KEY_COMMA            , KEY_LEFT_ARROW       , KEY_RIGHT_ARROW , KEY_LEFT_SHIFT  },
+  { KEY_Z          , KEY_X            , KEY_C          , KEY_V                , KEY_B                , KEY_N           , KEY_RIGHT_SHIFT },
+  { KEY_H          , KEY_J            , KEY_K          , KEY_M                , KEY_PERIOD           , KEY_DOWN_ARROW  , KEY_FN          },
+  { KEY_TAB        , KEY_A            , KEY_S          , KEY_D                , KEY_F                , KEY_G           , KEY_LEFT_CTRL   },
+  { KEY_1          , KEY_2            , KEY_3          , KEY_4                , KEY_5                , KEY_6           , 0               },
+  { KEY_U          , KEY_I            , KEY_O          , KEY_P                , KEY_L                , KEY_RETURN      , KEY_LEFT_GUI    },
+  { KEY_Q          , KEY_W            , KEY_E          , KEY_R                , KEY_T                , KEY_Y           , KEY_ESC         },
+  { KEY_7          , KEY_8            , KEY_9          , KEY_0                , KEY_BACKSPACE        , KEY_APOSTROPHE  , 0               }
 };
 
 static int keyFnScancode[NROWS][NCOLS] = {
-  { 0              , KEY_PRINT_SCREEN , KEY_PAGE_UP    , KEY_MENU                 , KEY_HOME                 , KEY_END         , KEY_LEFT_SHIFT  },
-  { 0              , 0                , 0              , 0                        , 0                        , 0               , KEY_RIGHT_SHIFT },
-  { KEY_TICK       , KEY_TILDA        , KEY_QUESTION   , KEY_BRIGHTNESS_DECREMENT , KEY_BRIGHTNESS_INCREMENT , KEY_PAGE_DOWN   , KEY_FN          },
-  { KEY_CAPS_LOCK  , 0                , 0              , 0                        , 0                        , KEY_PIPE        , KEY_LEFT_CTRL   },
-  { KEY_UNDERSCORE , KEY_SLASH        , KEY_BACK_SLASH , KEY_AT                   , KEY_ANGLE_L              , KEY_ANGLE_R     , 0               },
-  { KEY_KP_SLASH   , KEY_KP_PLUS      , KEY_KP_MINUS   , KEY_EQUAL                , KEY_SEMICOLON            , 0               , KEY_LEFT_ALT    },
-  { 0              , 0                , 0              , 0                        , 0                        , KEY_KP_ASTERISK , KEY_POWER       },
-  { KEY_SQUARE_L   , KEY_SQUARE_R     , KEY_CURL_L     , KEY_CURL_R               , KEY_DELETE               , KEY_COLON       , 0               }
+  { 0              , KEY_PRINT_SCREEN , KEY_PAGE_UP    , KEY_MENU             , KEY_HOME             , KEY_END         , KEY_LEFT_SHIFT  },
+  { 0              , 0                , 0              , 0                    , 0                    , 0               , KEY_RIGHT_SHIFT },
+  { KEY_TICK       , KEY_TILDA        , KEY_QUESTION   , KEY_VOLUME_DECREMENT , KEY_VOLUME_INCREMENT , KEY_PAGE_DOWN   , KEY_FN          },
+  { KEY_CAPS_LOCK  , 0                , 0              , 0                    , 0                    , KEY_PIPE        , KEY_LEFT_CTRL   },
+  { KEY_UNDERSCORE , KEY_SLASH        , KEY_BACK_SLASH , KEY_AT               , KEY_ANGLE_L          , KEY_ANGLE_R     , 0               },
+  { KEY_KP_SLASH   , KEY_KP_PLUS      , KEY_KP_MINUS   , KEY_EQUAL            , KEY_SEMICOLON        , 0               , KEY_LEFT_ALT    },
+  { 0              , 0                , 0              , 0                    , 0                    , KEY_KP_ASTERISK , KEY_POWER       },
+  { KEY_SQUARE_L   , KEY_SQUARE_R     , KEY_CURL_L     , KEY_CURL_R           , KEY_DELETE           , KEY_COLON       , 0               }
 };
