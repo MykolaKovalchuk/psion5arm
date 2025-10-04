@@ -10,4 +10,4 @@ Keyboard code based on original RasmusB code https://github.com/RasmusB/USB-Keyb
 Cirque Trackpad code is derived on library and examples from https://github.com/2bndy5/CirquePinnacle
 
 Folder PCB contains KiCad scheme and pcb for a board to connect 22-pin FPC and 12-pin FPC to a Raspberry Pico.
-![IMAGE](./Images/board_v1.jpg)
+![IMAGE](/Images/board_v1.jpg)
