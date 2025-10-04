@@ -1,6 +1,6 @@
 # KiCad scheme and pcb for a board to connect 22-pin FPC and 12-pin FPC to a Raspberry Pico.
 
-![IMAGE](./Images/board_v1.jpg)
+![IMAGE](../../Images/board_v1.jpg)
 
 Footprint for Raspberry Pico are from https://github.com/ncarandini/KiCad-RP-Pico
 
