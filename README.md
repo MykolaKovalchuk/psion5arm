@@ -12,8 +12,15 @@ Used components:
 - Raspberry Pi Pico - keyboard and trackpad controller;
 - Small power bank with 12V 2A power delivery - tested with two different 5,000mAh 22.5W power banks (output 5V3A, 9V2.22A, 12V1.67A, 10V2.25A, 22.5W Max), works at least without heavy load;
 
-Internal assembly:
+Folder [KeyboardWithMouse](/KeyboardWithMouse/) contains:
+- Firmware for Raspberry Pico Pi to control Psion keyboard and Cirque trackpad;
+- KiCad files for PCB to connect Raspberry Pi with keyboard and trackpad via 22-pin and 12-pin flat cables.
+Code files for keyboard and trackpad (identified as mouse) contain links to original code, libraries, and guaide, which I have used to prepare my version of this controller.
+
+New internal components placement:
 ![Assembly 1](/Images/assembly1.jpg)
+All components connected with lots of FPC flat cables and FPC extension boards (22pin for keyboard, 12pin for trackpad, 40pin for display+touchpad, 2 x 30pin for IO board).
+Except Raspberry Pi connected to Khadas IO board via 4 wire USB interface (V, D+, D-, G).
 
 Actual assembly:
 ![Assembly 2](/Images/PXL_20250928_035612955.jpg)
